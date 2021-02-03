@@ -19,8 +19,13 @@ function App() {
     style: '',
     img: ''
   }
+  const emptyGuitar = {
+    make: '',
+    model: '',
+    img: ''
+  }
 
-  // UPDATE PATH
+  // UPDATE STATE
   const [editPlayer, setEditPlayer] = React.useState(emptyPlayer)
 
   // PULL UP THE PLAYERS
@@ -31,14 +36,23 @@ function App() {
       setPlayers(data)
     })
   }
+  // PULL UP GUITARS
+  const getGuitars = () => {
+    fetch(url + '/guitar')
+    .then(response => response.json())
+    .then(data => {
+      setGuitars(data)
+    })
+  }
   
   React.useEffect(() => {
     getPlayers()
+    getGuitars()
   }, [])
 
 // CREATING NEW PLAYER
 const handleCreate = (newPlayer) => {
-  fetch(url + '/create', {
+  fetch(url + '/player', {
     method: 'post', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(newPlayer)
   })
@@ -54,7 +68,7 @@ const selectPlayer = (player) => {
 
 // DELETE PLAYER
 const deletePlayer = (player) => {
-  fetch(url + '/player' + player.name, {
+  fetch(url + '/player' + player.id, {
     method: 'delete'
   })
   .then(() => {
@@ -68,6 +82,7 @@ const deletePlayer = (player) => {
       <h1>Guitar Players</h1>
       <Link to='/create'>
         <button className="create-btn">Create A Player</button>
+        <button className="create-btn">Create A Guitar</button>
       </Link>
       {/* <Switch> */}
       <Route exact path= '/' render= {(rp) => (
@@ -76,6 +91,7 @@ const deletePlayer = (player) => {
         players = { players } 
         selectPlayer = { selectPlayer }
         deletePlayer= { deletePlayer }
+        guitars = { guitars }
         />
       )}>
       </Route>

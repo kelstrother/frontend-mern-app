@@ -62,6 +62,7 @@ const Form = (props) => {
     style= {{ width: "15vw" }}
     value= { props.label }
     />
+   
       </div>
    )
 }
