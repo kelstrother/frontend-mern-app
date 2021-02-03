@@ -18,7 +18,7 @@ const Form = (props) => {
 
    return (
       <div>
-         <form className= 'form-container'>
+         <form onSubmit = { handleSubmit } className= 'form-container'>
       <input
          className= 'name-input'
         style= {{ width: '40vw' }}
@@ -59,7 +59,9 @@ const Form = (props) => {
     <input 
     className= 'submit-btn'
     type="submit"  
-    style= {{ width: "15vw" }} />
+    style= {{ width: "15vw" }}
+    value= { props.label }
+    />
       </div>
    )
 }
